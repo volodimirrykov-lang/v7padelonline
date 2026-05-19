@@ -847,7 +847,11 @@ function renderParticipants() {
   const count = document.getElementById('part-count');
   const badge = document.getElementById('part-total-badge');
   
-  badge.textContent = allParticipants.length > 0 ? '(' + allParticipants.length + ')' : '';
+  const totalPlayers = allParticipants.reduce((sum, p) => {
+    const isPair = p.reg_type === 'pair' && p.p2_name && p.p2_name !== 'Solo';
+    return sum + (isPair ? 2 : 1);
+  }, 0);
+  badge.textContent = totalPlayers > 0 ? '(' + totalPlayers + ')' : '';
   
   if (filtered.length === 0) {
     list.style.display = 'none';
@@ -881,7 +885,10 @@ function renderParticipants() {
   
   const c1 = allParticipants.filter(p => p.category === '1').length;
   const c2 = allParticipants.filter(p => p.category === '2').length;
-  count.textContent = `Cat 1: ${c1} · Cat 2: ${c2} · Total: ${allParticipants.length}`;
+  const p1 = allParticipants.filter(p => p.category === '1').reduce((s,p) => s + (p.reg_type==='pair' && p.p2_name && p.p2_name!=='Solo' ? 2 : 1), 0);
+  const p2 = allParticipants.filter(p => p.category === '2').reduce((s,p) => s + (p.reg_type==='pair' && p.p2_name && p.p2_name!=='Solo' ? 2 : 1), 0);
+  const pTotal = allParticipants.reduce((s,p) => s + (p.reg_type==='pair' && p.p2_name && p.p2_name!=='Solo' ? 2 : 1), 0);
+  count.textContent = `Cat 1: ${p1} · Cat 2: ${p2} · Total: ${pTotal}`;
 }
 
 // Close on backdrop click
