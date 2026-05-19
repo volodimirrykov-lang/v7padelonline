@@ -885,13 +885,14 @@ const rT={en:'pair',ru:'pair',tr:'pair',ua:'pair'};
 function setL(l){
   document.querySelectorAll('.lp').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.lb button').forEach(b=>b.classList.remove('on'));
-  document.getElementById('lp-'+l).classList.add('active');
-  event.target.classList.add('on');
+  const lp = document.getElementById('lp-'+l);
+  if(lp) lp.classList.add('active');
+  document.querySelector('.lb button[onclick="setL(''+l+'')"]').classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
   const t={en:'Register',ru:'Записаться',tr:'Kayıt Ol',ua:'Реєстрація'};
   const r={en:'reg-en',ru:'reg-ru',tr:'reg-tr',ua:'reg-ua'};
-  document.getElementById('ft').textContent=t[l];
-  document.getElementById('fb').href='#'+r[l];
+  document.getElementById('ft').textContent=t[l]||'Register';
+  document.getElementById('fb').href='#'+(r[l]||'reg-tr');
 }
 function togReg(type,lang){
   rT[lang]=type;
