@@ -882,12 +882,30 @@ function updateSubmitBtn(lang) {
 }
 
 function dedupPairs(rows) {
+  // Step 1: remove exact pair duplicates
   const seen = new Set();
-  return rows.filter(p => {
+  rows = rows.filter(p => {
     const names = [p.p1_name.trim().toLowerCase(), p.p2_name.trim().toLowerCase()].sort();
     const key = names.join('|') + '|' + p.category;
     if (seen.has(key)) return false;
     seen.add(key);
+    return true;
+  });
+
+  // Step 2: collect all names that appear in a real pair
+  const inPair = new Set();
+  rows.forEach(p => {
+    const isSolo = !p.p2_name || p.p2_name.trim().toLowerCase() === 'solo' || p.p2_name.trim() === '';
+    if (!isSolo) {
+      inPair.add(p.p1_name.trim().toLowerCase());
+      inPair.add(p.p2_name.trim().toLowerCase());
+    }
+  });
+
+  // Step 3: remove solo entries for people who are already in a pair
+  return rows.filter(p => {
+    const isSolo = !p.p2_name || p.p2_name.trim().toLowerCase() === 'solo' || p.p2_name.trim() === '';
+    if (isSolo && inPair.has(p.p1_name.trim().toLowerCase())) return false;
     return true;
   });
 }
