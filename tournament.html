@@ -195,11 +195,10 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
 
 <a href="#reg-en" class="freg" id="fb">🎾 <span id="ft">Register</span></a>
 
-<div class="lb" id="langbar">
-  <button class="on" data-lang="tr">TR</button>
-  <button data-lang="en">EN</button>
-  <button data-lang="ua">UA</button>
-  <button data-lang="ru">RU</button>
+<div class="lb">
+  <button class="on" onclick="setL('tr')">TR</button>
+  <button onclick="setL('en')">EN</button>
+  <button onclick="setL('ru')">RU</button>
 </div>
 
 <div class="lp" id="lp-en">
@@ -703,173 +702,6 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
   </div>
 </section>
 
-</div><div class="lp" id="lp-ua">
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-pattern"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">V7 Padel Club · Antalya</div>
-    <h1 class="hero-title">
-      <div class="ht1">ГРАНД</div>
-      <div class="ht2">ПАДЕЛЬ</div>
-      <div class="ht3">ТУРНІР</div>
-    </h1>
-    <div class="hero-date-row">
-      <span class="hero-date">23–24 травня 2026</span>
-      <span class="hero-dot"></span>
-      <span class="hero-city">Анталья</span>
-    </div>
-    <p class="hero-desc">Такого в Анталії <strong>ще ніколи не було</strong>.<br>Два турнірних дні. Гранд-івент. Переможці отримують <strong>кубки, медалі та серйозні призи</strong>.</p>
-    <div class="hero-closed">V7 Padel повністю закритий під турнір — тільки учасники, тільки атмосфера великого спорту.</div>
-    <div class="hero-cta">
-      <a href="#reg-ua" class="btn btn-lime">Реєструватись →</a>
-      <a href="#cats-ua" class="btn btn-ghost">Детальніше</a>
-      <button class="part-btn" onclick="openPart()">👥 Учасники</button>
-    </div>
-  </div>
-</section>
-
-<!-- CATEGORIES -->
-<section class="section" id="cats-ua">
-  <div class="si">
-    <div class="ey">Дві категорії</div>
-    <h2 class="st">Обери <span>Рівень</span></h2>
-    <div class="cats">
-      <div class="cat c1">
-        <div class="cat-bg-num">1</div>
-        <div class="cat-label">Категорія 1</div>
-        <div class="cat-name">Beginners / Beginner+</div>
-        <div class="cat-level">До 1100 (Racket ID) · До 3.0 (PlayTomic)<br>День 1: старт 09:00 · День 2: старт 09:00</div>
-      </div>
-      <div class="cat c2">
-        <div class="cat-bg-num">2</div>
-        <div class="cat-label">Категорія 2</div>
-        <div class="cat-name">Intermediate / Advanced</div>
-        <div class="cat-level">Від 1100 (Racket ID) · Від 3.5 (PlayTomic)<br>День 1: старт 16:00 · День 2: старт 11:00</div>
-      </div>
-    </div>
-    <p class="note">16 пар у кожній категорії · 4 групи по 4 · ТОП-2 виходять у плей-офф</p>
-    <p class="note" style="margin-top:.5rem">Груповий етап у день 1 → Чвертьфінали, півфінали та фінали у день 2.<br>Півфінали та фінали судять наші іспанські тренери.</p>
-  </div>
-</section>
-
-<!-- PRIZES -->
-<section class="section section-alt">
-  <div class="si">
-    <div class="ey">Призовий фонд</div>
-    <h2 class="st">Призи <span>Переможцям</span></h2>
-    <p class="note" style="margin-bottom:1.5rem">Призи вручаються в кожній категорії окремо. Плюс кубки, медалі та подарунки від партнерів.</p>
-    <div class="prizes">
-      <div class="prize p1"><div class="pm">🥇</div><div><div class="pp">1-е місце</div><div class="pa gold">10 000 ₺</div><div class="pn">на пару · на баланс</div></div></div>
-      <div class="prize"><div class="pm">🥈</div><div><div class="pp">2-е місце</div><div class="pa silver">6 000 ₺</div><div class="pn">на пару · на баланс</div></div></div>
-      <div class="prize"><div class="pm">🥉</div><div><div class="pp">3-є місце</div><div class="pa bronze">4 000 ₺</div><div class="pn">на пару · на баланс</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- LOTTERY -->
-<section class="section">
-  <div class="si">
-    <div class="ey">Лотерея</div>
-    <h2 class="st">Лотерея</h2>
-    <p class="note" style="margin-bottom:1.25rem">Два розіграші — на початку дня 1 і дня 2. Для всіх зареєстрованих учасників.</p>
-    <div class="lot-grid">
-      <div class="lot-item"><span>💳</span>Поповнення балансу від клубу</div>
-      <div class="lot-item"><span>🎾</span>Знижки на тренування</div>
-      <div class="lot-item"><span>👕</span>Мерч V7 Padel Club</div>
-      <div class="lot-item"><span>🎁</span>Призи від спонсорів</div>
-    </div>
-  </div>
-</section>
-
-<!-- JUDGES -->
-<section class="section section-alt">
-  <div class="si">
-    <div class="ey">Судді</div>
-    <h2 class="st">Іспанські <span>Тренери</span></h2>
-    <div class="judges">
-      <div class="judge"><div class="jm">JP</div><div class="jn">Juan Pablo Vanella</div><div class="js">Тренер з Іспанії<br>Суддя: ПФ та Фінали</div></div>
-      <div class="judge"><div class="jm">PF</div><div class="jn">Patrikas Freimantas</div><div class="js">Тренер з Іспанії<br>Суддя: ПФ та Фінали</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICE -->
-<section class="section">
-  <div class="si">
-    <div class="ey">Внесок</div>
-    <h2 class="st">Вартість <span>Участі</span></h2>
-    <div class="prices">
-      <div class="price-row"><div class="pr-tier">Стандарт — 2 000 ₺</div></div>
-      <div class="price-row hi"><div class="pr-tier">Club Member — 1 800 ₺</div></div>
-      <div class="price-row hi"><div class="pr-tier">VIP Member — 1 400 ₺</div></div>
-    </div>
-    <p class="note" style="margin-top:.875rem">Реєстрація парами. Немає партнера? Напишіть нам — допоможемо знайти.</p>
-  </div>
-</section>
-
-<!-- REGISTER -->
-<section class="section section-alt" id="reg-ua">
-  <div class="si">
-    <div class="ey">Реєстрація</div>
-    <h2 class="st" style="margin-bottom:.375rem">Записатись <span>На Турнір</span></h2>
-    <p class="note" style="margin-bottom:1.5rem">Заповніть форму — підтвердимо місце протягом 24 годин.</p>
-    <div class="slots-row" id="slots-ua"></div>
-    <div class="form-box">
-      <div class="f-err" id="err-ua"></div>
-      <div class="fg"><label class="fl">Тип реєстрації <span>*</span></label>
-        <div class="ftog">
-          <button class="ft on" id="tp-ua" onclick="togReg('pair','ua')">Реєструюсь парою</button>
-          <button class="ft" id="ts-ua" onclick="togReg('solo','ua')">Без пари (потрібен партнер)</button>
-        </div>
-      </div>
-      <div class="fp-box">
-        <div class="fp-lbl">Гравець 1 — Ви</div>
-        <div class="f2col">
-          <div class="fg"><label class="fl">Ім'я <span>*</span></label><input class="fi" id="p1f_ua" placeholder="Ім'я"></div>
-          <div class="fg"><label class="fl">Прізвище <span>*</span></label><input class="fi" id="p1l_ua" placeholder="Прізвище"></div>
-        </div>
-        <div class="fg"><label class="fl">Нікнейм у Matchi (якщо є)</label><input class="fi" id="p1m_ua" placeholder="@nickname"></div>
-        <div class="fg"><label class="fl">WhatsApp / Telegram <span>*</span></label><input class="fi" id="p1p_ua" placeholder="+90 555 000 00 00"><div class="fh">Якщо немає акаунту Matchi — вкажіть номер</div></div>
-      </div>
-      <div class="fp-box" id="p2-ua">
-        <div class="fp-lbl">Гравець 2 — Партнер</div>
-        <div class="f2col">
-          <div class="fg"><label class="fl">Ім'я <span>*</span></label><input class="fi" id="p2f_ua" placeholder="Ім'я"></div>
-          <div class="fg"><label class="fl">Прізвище <span>*</span></label><input class="fi" id="p2l_ua" placeholder="Прізвище"></div>
-        </div>
-        <div class="fg"><label class="fl">Нікнейм у Matchi (якщо є)</label><input class="fi" id="p2m_ua" placeholder="@nickname"></div>
-        <div class="fg"><label class="fl">WhatsApp / Telegram</label><input class="fi" id="p2p_ua" placeholder="+90 555 000 00 00"></div>
-      </div>
-      <div class="fdiv"></div>
-      <div class="fg"><label class="fl">Категорія <span>*</span></label>
-        <select class="fi" id="cat_ua" onchange="updateSubmitBtn('ua')">
-          <option value="">— Оберіть —</option>
-          <option value="1">Категорія 1 — Початківці (до 1100 / 3.0)</option>
-          <option value="2">Категорія 2 — Інтермедіат+ (від 1100 / 3.5)</option>
-        </select>
-      </div>
-      <div class="fg"><label class="fl">Коментар (необов'язково)</label><textarea class="fi ftx" id="com_ua" placeholder="Питання або побажання"></textarea></div>
-      <button class="fsub" id="sbtn-ua" onclick="sub('ua')">Надіслати заявку →</button>
-    </div>
-    <div class="f-succ" id="succ-ua">
-      <div style="font-size:2.5rem;margin-bottom:.75rem">🎾</div>
-      <div class="succ-t" id="succ-title-ua">Заявку прийнято!</div>
-      <div class="succ-s">Підтвердимо місце протягом 24 годин через WhatsApp або Telegram. До зустрічі на корті!</div>
-    </div>
-    <div class="contacts">
-      <div class="ct-label">Є питання? <span>Наші менеджери завжди на зв'язку.</span></div>
-      <div class="ct-btns">
-        <a href="https://wa.me/905467800877" class="cb cwa" target="_blank">💬 WhatsApp</a>
-        <a href="https://t.me/V7padel_manager" class="cb ctg" target="_blank">✈️ Telegram</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 </div>
 
 <footer>
@@ -881,27 +713,18 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
 
 <script>
 const SHEET_URL='https://script.google.com/macros/s/AKfycbzANjfGBDJNamYszTSUma4dsKbVtVAkVbUXtNOg0VnGOWzxgTfquj87eQYtJbgVek00YA/exec';
-const rT={en:'pair',ru:'pair',tr:'pair',ua:'pair'};
+const rT={en:'pair',ru:'pair',tr:'pair'};
 function setL(l){
-  document.querySelectorAll('.lp').forEach(function(p){p.classList.remove('active');});
-  document.querySelectorAll('#langbar button').forEach(function(b){b.classList.remove('on');});
-  var lp=document.getElementById('lp-'+l);
-  if(lp) lp.classList.add('active');
-  var btn=document.querySelector('#langbar button[data-lang="'+l+'"]');
-  if(btn) btn.classList.add('on');
+  document.querySelectorAll('.lp').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.lb button').forEach(b=>b.classList.remove('on'));
+  document.getElementById('lp-'+l).classList.add('active');
+  document.querySelectorAll('.lb button').forEach(function(b){if(b.textContent.trim()===l.toUpperCase())b.classList.add('on');});
   window.scrollTo({top:0,behavior:'smooth'});
-  var t={en:'Register',ru:'Записаться',tr:'Kayıt Ol',ua:'Реєстрація'};
-  var r={en:'reg-en',ru:'reg-ru',tr:'reg-tr',ua:'reg-ua'};
-  document.getElementById('ft').textContent=t[l]||'Register';
-  document.getElementById('fb').href='#'+(r[l]||'reg-tr');
+  var t={en:'Register',ru:'Записаться',tr:'Kayıt Ol'};
+  var r={en:'reg-en',ru:'reg-ru',tr:'reg-tr'};
+  document.getElementById('ft').textContent=t[l]||'';
+  document.getElementById('fb').href='#'+(r[l]||'');
 }
-
-document.addEventListener('DOMContentLoaded',function(){
-  document.getElementById('langbar').addEventListener('click',function(e){
-    var btn=e.target.closest('button[data-lang]');
-    if(btn) setL(btn.getAttribute('data-lang'));
-  });
-});
 function togReg(type,lang){
   rT[lang]=type;
   document.getElementById('tp-'+lang).classList.toggle('on',type==='pair');
@@ -919,7 +742,7 @@ async function sub(lang){
   const ip=rT[lang]==='pair';
   const p2f=ip?g('p2f_'+lang):'',p2l=ip?g('p2l_'+lang):'';
   const p2m=ip?g('p2m_'+lang):'',p2p=ip?g('p2p_'+lang):'';
-  const M={en:{r:'Please fill required fields (*)',c:'Please select category',k:'Enter Matchi nickname or phone'},ru:{r:'Заполните обязательные поля (*)',c:'Выберите категорию',k:'Укажите Matchi или телефон'},tr:{r:'Zorunlu alanları doldurun (*)',c:'Kategori seçin',k:'Matchi veya telefon girin'},ua:{r:'Заповніть обов'язкові поля (*)',c:'Оберіть категорію',k:'Вкажіть Matchi або телефон'}};
+  const M={en:{r:'Please fill required fields (*)',c:'Please select category',k:'Enter Matchi nickname or phone'},ru:{r:'Заполните обязательные поля (*)',c:'Выберите категорию',k:'Укажите Matchi или телефон'},tr:{r:'Zorunlu alanları doldurun (*)',c:'Kategori seçin',k:'Matchi veya telefon girin'}};
   const show=m=>{err.textContent=m;err.style.display='block';err.scrollIntoView({behavior:'smooth',block:'center'})};
   if(!p1f||!p1l){show(M[lang].r);return;}
   if(!cat){show(M[lang].c);return;}
@@ -932,8 +755,8 @@ async function sub(lang){
     await fetch(SHEET_URL + '?' + params, {method:'GET', mode:'no-cors'});
   }catch(e){}
   document.querySelector('#lp-'+lang+' .form-box').style.display='none';
-  const wlLabels={en:"You're on the Waitlist!",ru:'Вы в листе ожидания!',tr:'Bekleme Listesinesiniz!',ua:'Ви в листі очікування!'};
-  const okLabels={en:"You're Registered!",ru:'Заявка принята!',tr:'Kayıt Alındı!',ua:'Заявку прийнято!'};
+  const wlLabels={en:"You're on the Waitlist!",ru:'Вы в листе ожидания!',tr:'Bekleme Listesinesiniz!'};
+  const okLabels={en:"You're Registered!",ru:'Заявка принята!',tr:'Kayıt Alındı!'};
   const titleEl=document.getElementById('succ-title-'+lang);
   if(titleEl) titleEl.textContent = wlFlag ? wlLabels[lang] : okLabels[lang];
   const s=document.getElementById('succ-'+lang);
@@ -1002,7 +825,7 @@ function countPairs(cat) {
 }
 
 function updateSlots() {
-  ['en','ru','tr','ua'].forEach(lang => {
+  ['en','ru','tr'].forEach(lang => {
     const p1 = countPairs(1);
     const p2 = countPairs(2);
     const el = document.getElementById('slots-' + lang);
@@ -1012,7 +835,6 @@ function updateSlots() {
       en: {cat1:'Category 1', cat2:'Category 2', left:'spots left', full:'FULL', wl:'Waitlist'},
       ru: {cat1:'Категория 1', cat2:'Категория 2', left:'мест осталось', full:'МЕСТ НЕТ', wl:'Лист ожидания'},
       tr: {cat1:'Kategori 1',  cat2:'Kategori 2',  left:'yer kaldı',    full:'DOLU',     wl:'Bekleme listesi'},
-      ua: {cat1:'Категорія 1', cat2:'Категорія 2', left:'місць залишилось', full:'МІСЦЬ НЕМАЄ', wl:'Лист очікування'},
     };
     const L = labels[lang];
 
@@ -1052,7 +874,6 @@ function updateSubmitBtn(lang) {
     en: {reg:'Submit Registration →', wl:'Join Waitlist →'},
     ru: {reg:'Отправить заявку →', wl:'Записаться в лист ожидания →'},
     tr: {reg:'Kaydı Gönder →',    wl:'Bekleme listesine ekle →'},
-    ua: {reg:'Надіслати заявку →', wl:'Записатись у лист очікування →'},
   };
   const L = labels[lang];
   const wl = isWaitlist(lang);
