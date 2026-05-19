@@ -782,7 +782,7 @@ async function loadParticipants(force) {
     const url = SHEET_CSV + '&t=' + now;
     const resp = await fetch(url);
     const text = await resp.text();
-    allParticipants = parseCSV(text);
+    allParticipants = dedupPairs(parseCSV(text));
     lastLoaded = now;
   } catch(e) {
     document.getElementById('part-loading').textContent = 'Could not load. Try refresh.';
@@ -790,6 +790,18 @@ async function loadParticipants(force) {
   }
   document.getElementById('part-loading').style.display = 'none';
   renderParticipants();
+}
+
+
+function dedupPairs(rows) {
+  const seen = new Set();
+  return rows.filter(p => {
+    const names = [p.p1_name.trim().toLowerCase(), p.p2_name.trim().toLowerCase()].sort();
+    const key = names.join('|') + '|' + p.category;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function parseCSV(text) {
