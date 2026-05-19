@@ -697,7 +697,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
 </footer>
 
 <script>
-const SHEET_URL='https://script.google.com/macros/s/AKfycbxn5WxpA5CbCacy5KqjFvKrN4jCr7daO-uNx8lJ86TEfZ8o3PFKh_nBZTi2iKPc9tOL/exec';
+const SHEET_URL='https://script.google.com/macros/s/AKfycbzANjfGBDJNamYszTSUma4dsKbVtVAkVbUXtNOg0VnGOWzxgTfquj87eQYtJbgVek00YA/exec';
 const rT={en:'pair',ru:'pair',tr:'pair'};
 function setL(l){
   document.querySelectorAll('.lp').forEach(p=>p.classList.remove('active'));
@@ -734,7 +734,10 @@ async function sub(lang){
   if(!p1m&&!p1p){show(M[lang].k);return;}
   btn.disabled=true;btn.textContent='⏳';
   const d={timestamp:new Date().toISOString(),lang,reg_type:rT[lang],category:cat,membership:mem,p1_name:p1f+' '+p1l,p1_matchi:p1m,p1_phone:p1p,p2_name:ip?(p2f+' '+p2l).trim():'Solo',p2_matchi:p2m,p2_phone:p2p,comment:com};
-  try{await fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});}catch(e){}
+  try{
+    const params = new URLSearchParams(d).toString();
+    await fetch(SHEET_URL + '?' + params, {method:'GET', mode:'no-cors'});
+  }catch(e){}
   document.querySelector('#lp-'+lang+' .form-box').style.display='none';
   const s=document.getElementById('succ-'+lang);
   if(s){s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});}
