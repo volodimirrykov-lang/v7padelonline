@@ -870,8 +870,7 @@ function renderParticipants() {
     const isPair = p.reg_type === 'pair' && p.p2_name && p.p2_name !== 'Solo';
     const catClass = p.category === '1' ? 'c1' : 'c2';
     const catLabel = p.category === '1' ? 'Category 1' : p.category === '2' ? 'Category 2' : 'Cat ' + p.category;
-    const memBadge = (p.membership && p.membership !== 'Standard')
-      ? `<span class="part-badge mem">${p.membership}</span>` : '';
+    const memBadge = '';
     const pairInfo = isPair
       ? `<div class="part-pair">${p.p1_name} <span style="color:rgba(255,255,255,.35)">+</span> ${p.p2_name}</div>`
       : `<div class="part-pair">${p.p1_name} <span style="color:rgba(255,255,255,.35);font-size:.75rem">solo</span></div>`;
