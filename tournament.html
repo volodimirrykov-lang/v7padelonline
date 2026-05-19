@@ -146,7 +146,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
 .lp{display:none}.lp.active{display:block}
 
 /* PARTICIPANTS */
-.part-btn{display:inline-flex;align-items:center;gap:.5rem;background:#0d2548;border:1.5px solid rgba(201,232,43,.3);border-radius:10px;padding:.75rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;color:#C9E82B;cursor:pointer;transition:all .2s;margin-top:1.5rem}
+.part-btn{display:inline-flex;align-items:center;gap:.5rem;background:transparent;border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:.875rem 1.875rem;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;color:#FFFFFF;cursor:pointer;transition:all .2s;letter-spacing:.02em}
 .part-btn:hover{background:rgba(201,232,43,.1);border-color:#C9E82B}
 .part-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(5,13,28,.92);overflow-y:auto;padding:1.5rem}
 .part-modal.open{display:block}
@@ -747,7 +747,7 @@ const obs=new IntersectionObserver(entries=>{
 ['reg-en','reg-ru','reg-tr'].forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
 
 // ── PARTICIPANTS ──
-const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/1PWpjpM3wAQomEMFyyiC4HxTMfToMCS2vpash70V9l2k/export?format=csv&gid=1504711216';
+const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/1gDa59rxZsrwEy_DXcXEwZkGbU8T3HkmQSuglPaJw5Gk/export?format=csv&gid=0';
 let allParticipants = [];
 let currentFilter = 'all';
 let lastLoaded = 0;
