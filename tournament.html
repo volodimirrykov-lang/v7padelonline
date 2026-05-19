@@ -142,6 +142,18 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
 .fl-loc:hover{color:#C9E82B}
 .fl-copy{font-size:.68rem;color:rgba(255,255,255,.18);margin-top:.875rem}
 
+
+/* WAITLIST */
+.wl-banner{background:rgba(200,148,26,.12);border:.5px solid rgba(200,148,26,.35);border-radius:12px;padding:1.25rem;margin-bottom:1.25rem;text-align:center}
+.wl-title{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;text-transform:uppercase;color:#C8941A;margin-bottom:.375rem}
+.wl-sub{font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.6}
+.slots-row{display:flex;gap:.5rem;margin-bottom:1.5rem}
+.slot-box{flex:1;background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.1);border-radius:10px;padding:.875rem;text-align:center}
+.slot-box.full{border-color:rgba(200,148,26,.4);background:rgba(200,148,26,.08)}
+.slot-num{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#C9E82B;line-height:1}
+.slot-num.full{color:#C8941A}
+.slot-lbl{font-size:.68rem;color:rgba(255,255,255,.5);margin-top:.2rem;text-transform:uppercase;letter-spacing:.08em}
+
 /* LP */
 .lp{display:none}.lp.active{display:block}
 
@@ -302,6 +314,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
     <div class="ey">Registration</div>
     <h2 class="st" style="margin-bottom:.375rem">Sign <span>Up</span></h2>
     <p class="note" style="margin-bottom:1.5rem">Fill in the form — we'll confirm your spot within 24 hours.</p>
+    <div class="slots-row" id="slots-en"></div>
     <div class="form-box">
       <div class="f-err" id="err-en"></div>
       <div class="fg"><label class="fl">Registration type <span>*</span></label>
@@ -330,7 +343,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
       </div>
       <div class="fdiv"></div>
       <div class="fg"><label class="fl">Category <span>*</span></label>
-        <select class="fi" id="cat_en">
+        <select class="fi" id="cat_en" onchange="updateSubmitBtn('en')">
           <option value="">— Select —</option>
           <option value="1">Category 1 — Beginners (up to 1100 / 3.0)</option>
           <option value="2">Category 2 — Intermediate+ (from 1100 / 3.5)</option>
@@ -342,7 +355,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
     </div>
     <div class="f-succ" id="succ-en">
       <div style="font-size:2.5rem;margin-bottom:.75rem">🎾</div>
-      <div class="succ-t">You're Registered!</div>
+      <div class="succ-t" id="succ-title-en">You're Registered!</div>
       <div class="succ-s">We'll confirm your spot via WhatsApp or Telegram within 24 hours. See you on the court!</div>
     </div>
     <div class="contacts">
@@ -468,6 +481,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
     <div class="ey">Регистрация</div>
     <h2 class="st" style="margin-bottom:.375rem">Записаться <span>На Турнир</span></h2>
     <p class="note" style="margin-bottom:1.5rem">Заполните форму — подтвердим место в течение 24 часов.</p>
+    <div class="slots-row" id="slots-ru"></div>
     <div class="form-box">
       <div class="f-err" id="err-ru"></div>
       <div class="fg"><label class="fl">Тип регистрации <span>*</span></label>
@@ -496,7 +510,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
       </div>
       <div class="fdiv"></div>
       <div class="fg"><label class="fl">Категория <span>*</span></label>
-        <select class="fi" id="cat_ru">
+        <select class="fi" id="cat_ru" onchange="updateSubmitBtn('ru')">
           <option value="">— Выберите —</option>
           <option value="1">Категория 1 — Начинающие (до 1100 / 3.0)</option>
           <option value="2">Категория 2 — Интермедиат+ (от 1100 / 3.5)</option>
@@ -508,7 +522,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
     </div>
     <div class="f-succ" id="succ-ru">
       <div style="font-size:2.5rem;margin-bottom:.75rem">🎾</div>
-      <div class="succ-t">Заявка принята!</div>
+      <div class="succ-t" id="succ-title-ru">Заявка принята!</div>
       <div class="succ-s">Подтвердим место в течение 24 часов через WhatsApp или Telegram. До встречи на корте!</div>
     </div>
     <div class="contacts">
@@ -634,6 +648,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
     <div class="ey">Kayıt</div>
     <h2 class="st" style="margin-bottom:.375rem">Turnuvaya <span>Kaydol</span></h2>
     <p class="note" style="margin-bottom:1.5rem">Formu doldurun — 24 saat içinde onaylayacağız.</p>
+    <div class="slots-row" id="slots-tr"></div>
     <div class="form-box">
       <div class="f-err" id="err-tr"></div>
       <div class="fg"><label class="fl">Kayıt türü <span>*</span></label>
@@ -662,7 +677,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
       </div>
       <div class="fdiv"></div>
       <div class="fg"><label class="fl">Kategori <span>*</span></label>
-        <select class="fi" id="cat_tr">
+        <select class="fi" id="cat_tr" onchange="updateSubmitBtn('tr')">
           <option value="">— Seçin —</option>
           <option value="1">Kategori 1 — Başlangıç (1100'e / 3.0'a kadar)</option>
           <option value="2">Kategori 2 — Orta Seviye+ (1100 üzeri / 3.5 üzeri)</option>
@@ -674,7 +689,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
     </div>
     <div class="f-succ" id="succ-tr">
       <div style="font-size:2.5rem;margin-bottom:.75rem">🎾</div>
-      <div class="succ-t">Kayıt Alındı!</div>
+      <div class="succ-t" id="succ-title-tr">Kayıt Alındı!</div>
       <div class="succ-s">24 saat içinde WhatsApp veya Telegram üzerinden onaylayacağız. Kortta görüşürüz!</div>
     </div>
     <div class="contacts">
@@ -733,12 +748,17 @@ async function sub(lang){
   if(!cat){show(M[lang].c);return;}
   if(!p1m&&!p1p){show(M[lang].k);return;}
   btn.disabled=true;btn.textContent='⏳';
-  const d={timestamp:new Date().toISOString(),lang,reg_type:rT[lang],category:cat,membership:mem,p1_name:p1f+' '+p1l,p1_matchi:p1m,p1_phone:p1p,p2_name:ip?(p2f+' '+p2l).trim():'Solo',p2_matchi:p2m,p2_phone:p2p,comment:com};
+  const wlFlag = countPairs(cat) >= MAX_PAIRS;
+  const d={timestamp:new Date().toISOString(),lang,reg_type:rT[lang],category:cat,membership:mem,p1_name:p1f+' '+p1l,p1_matchi:p1m,p1_phone:p1p,p2_name:ip?(p2f+' '+p2l).trim():'Solo',p2_matchi:p2m,p2_phone:p2p,comment:com,waitlist:wlFlag?'YES':''};
   try{
     const params = new URLSearchParams(d).toString();
     await fetch(SHEET_URL + '?' + params, {method:'GET', mode:'no-cors'});
   }catch(e){}
   document.querySelector('#lp-'+lang+' .form-box').style.display='none';
+  const wlLabels={en:"You're on the Waitlist!",ru:'Вы в листе ожидания!',tr:'Bekleme Listesinesiniz!'};
+  const okLabels={en:"You're Registered!",ru:'Заявка принята!',tr:'Kayıt Alındı!'};
+  const titleEl=document.getElementById('succ-title-'+lang);
+  if(titleEl) titleEl.textContent = wlFlag ? wlLabels[lang] : okLabels[lang];
   const s=document.getElementById('succ-'+lang);
   if(s){s.style.display='block';s.scrollIntoView({behavior:'smooth',block:'center'});}
 }
@@ -787,6 +807,7 @@ async function loadParticipants(force) {
     const text = await resp.text();
     allParticipants = dedupPairs(parseCSV(text));
     lastLoaded = now;
+    updateSlots();
   } catch(e) {
     document.getElementById('part-loading').textContent = 'Could not load. Try refresh.';
     return;
@@ -795,6 +816,70 @@ async function loadParticipants(force) {
   renderParticipants();
 }
 
+
+
+const MAX_PAIRS = 16;
+
+function countPairs(cat) {
+  return allParticipants.filter(p => p.category === String(cat)).length;
+}
+
+function updateSlots() {
+  ['en','ru','tr'].forEach(lang => {
+    const p1 = countPairs(1);
+    const p2 = countPairs(2);
+    const el = document.getElementById('slots-' + lang);
+    if (!el) return;
+
+    const labels = {
+      en: {cat1:'Category 1', cat2:'Category 2', left:'spots left', full:'FULL', wl:'Waitlist'},
+      ru: {cat1:'Категория 1', cat2:'Категория 2', left:'мест осталось', full:'МЕСТ НЕТ', wl:'Лист ожидания'},
+      tr: {cat1:'Kategori 1',  cat2:'Kategori 2',  left:'yer kaldı',    full:'DOLU',     wl:'Bekleme listesi'},
+    };
+    const L = labels[lang];
+
+    const r1 = MAX_PAIRS - p1;
+    const r2 = MAX_PAIRS - p2;
+
+    el.innerHTML = `
+      <div class="slot-box ${r1 <= 0 ? 'full' : ''}">
+        <div class="slot-num ${r1 <= 0 ? 'full' : ''}">${r1 <= 0 ? '0' : r1}</div>
+        <div class="slot-lbl">${L.cat1} — ${r1 <= 0 ? L.full : L.left}</div>
+      </div>
+      <div class="slot-box ${r2 <= 0 ? 'full' : ''}">
+        <div class="slot-num ${r2 <= 0 ? 'full' : ''}">${r2 <= 0 ? '0' : r2}</div>
+        <div class="slot-lbl">${L.cat2} — ${r2 <= 0 ? L.full : L.left}</div>
+      </div>`;
+
+    // Update submit button and category select based on selected cat
+    updateSubmitBtn(lang);
+  });
+}
+
+function getSelectedCat(lang) {
+  const el = document.getElementById('cat_' + lang);
+  return el ? el.value : '';
+}
+
+function isWaitlist(lang) {
+  const cat = getSelectedCat(lang);
+  if (!cat) return false;
+  return countPairs(cat) >= MAX_PAIRS;
+}
+
+function updateSubmitBtn(lang) {
+  const btn = document.getElementById('sbtn-' + lang);
+  if (!btn) return;
+  const labels = {
+    en: {reg:'Submit Registration →', wl:'Join Waitlist →'},
+    ru: {reg:'Отправить заявку →', wl:'Записаться в лист ожидания →'},
+    tr: {reg:'Kaydı Gönder →',    wl:'Bekleme listesine ekle →'},
+  };
+  const L = labels[lang];
+  const wl = isWaitlist(lang);
+  btn.textContent = wl ? L.wl : L.reg;
+  btn.style.background = wl ? '#C8941A' : '';
+}
 
 function dedupPairs(rows) {
   const seen = new Set();
