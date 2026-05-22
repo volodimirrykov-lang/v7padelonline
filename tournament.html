@@ -346,7 +346,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
         <select class="fi" id="cat_en" onchange="updateSubmitBtn('en')">
           <option value="">— Select —</option>
           <option value="1">Category 1 — Beginners (up to 1100 / 3.0)</option>
-          <option value="2">Category 2 — Intermediate+ (from 1100 / 3.5)</option>
+          <option value="2" disabled>Category 2 — FULL · Intermediate+ (from 1100 / 3.5)</option>
         </select>
       </div>
 
@@ -513,7 +513,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
         <select class="fi" id="cat_ru" onchange="updateSubmitBtn('ru')">
           <option value="">— Выберите —</option>
           <option value="1">Категория 1 — Начинающие (до 1100 / 3.0)</option>
-          <option value="2">Категория 2 — Интермедиат+ (от 1100 / 3.5)</option>
+          <option value="2" disabled>Категория 2 — ПОЛНОСТЬЮ СОБРАНА · Интермедиат+ (от 1100 / 3.5)</option>
         </select>
       </div>
 
@@ -680,7 +680,7 @@ footer{background:#050d1c;border-top:.5px solid rgba(255,255,255,.05);padding:2.
         <select class="fi" id="cat_tr" onchange="updateSubmitBtn('tr')">
           <option value="">— Seçin —</option>
           <option value="1">Kategori 1 — Başlangıç (1100'e / 3.0'a kadar)</option>
-          <option value="2">Kategori 2 — Orta Seviye+ (1100 üzeri / 3.5 üzeri)</option>
+          <option value="2" disabled>Kategori 2 — DOLU · Orta Seviye+ (1100 üzeri / 3.5 üzeri)</option>
         </select>
       </div>
 
@@ -747,6 +747,11 @@ async function sub(lang){
   if(!p1f||!p1l){show(M[lang].r);return;}
   if(!cat){show(M[lang].c);return;}
   if(!p1m&&!p1p){show(M[lang].k);return;}
+  // Hard close (Olya 22.05): cat2 = full, cat1 = deadline 19:00 today Antalya
+  if((cat==='1'&&cat1Closed())||(cat==='2'&&cat2Closed())){
+    const CM={en:'This category is closed (full or deadline passed)',ru:'Эта категория закрыта (полностью набрана или дедлайн прошёл)',tr:'Bu kategori kapatıldı (dolu veya son tarih geçti)'};
+    show(CM[lang]);return;
+  }
   btn.disabled=true;btn.textContent='⏳';
   const wlFlag = countPairs(cat) >= MAX_PAIRS;
   const d={timestamp:new Date().toISOString(),lang,reg_type:rT[lang],category:cat,membership:mem,p1_name:p1f+' '+p1l,p1_matchi:p1m,p1_phone:p1p,p2_name:ip?(p2f+' '+p2l).trim():'Solo',p2_matchi:p2m,p2_phone:p2p,comment:com,waitlist:wlFlag?'YES':''};
@@ -820,6 +825,16 @@ async function loadParticipants(force) {
 
 const MAX_PAIRS = 16;
 
+// === MANUAL OVERRIDE (Olya 2026-05-22) ===
+// Cat 2 повністю зібрана. Cat 1 — 5 місць залишилось (2 пари + 1 соло), дедлайн 19:00 22.05 Antalya.
+const MANUAL = {
+  cat1: { closed: false, spotsLeftText: { en: '5 spots left (2 pairs + 1 solo)', ru: 'Осталось 5 мест (2 пары + 1 соло)', tr: '5 yer kaldı (2 çift + 1 tek)' } },
+  cat2: { closed: true,  closedText:     { en: 'Category 2 is FULL',              ru: 'Категория 2 полностью собрана',    tr: 'Kategori 2 DOLU' } },
+};
+const CAT1_DEADLINE_UTC = new Date('2026-05-22T16:00:00Z'); // 19:00 Antalya UTC+3
+function cat1Closed() { return MANUAL.cat1.closed || (new Date() >= CAT1_DEADLINE_UTC); }
+function cat2Closed() { return MANUAL.cat2.closed; }
+
 function countPairs(cat) {
   return allParticipants.filter(p => p.category === String(cat)).length;
 }
@@ -841,15 +856,18 @@ function updateSlots() {
     const r1 = MAX_PAIRS - p1;
     const r2 = MAX_PAIRS - p2;
 
+    // Cat 1 — show manual override text (5 spots left)
+    const cat1Label = cat1Closed()
+      ? `<div class="slot-num full">0</div><div class="slot-lbl">${L.cat1} — ${L.full}</div>`
+      : `<div class="slot-num">5</div><div class="slot-lbl">${MANUAL.cat1.spotsLeftText[lang] || L.left}</div>`;
+    // Cat 2 — закрита, повністю зібрана
+    const cat2Label = cat2Closed()
+      ? `<div class="slot-num full">0</div><div class="slot-lbl">${MANUAL.cat2.closedText[lang] || L.full}</div>`
+      : `<div class="slot-num ${r2 <= 0 ? 'full' : ''}">${r2 <= 0 ? '0' : r2}</div><div class="slot-lbl">${L.cat2} — ${r2 <= 0 ? L.full : L.left}</div>`;
+
     el.innerHTML = `
-      <div class="slot-box ${r1 <= 0 ? 'full' : ''}">
-        <div class="slot-num ${r1 <= 0 ? 'full' : ''}">${r1 <= 0 ? '0' : r1}</div>
-        <div class="slot-lbl">${L.cat1} — ${r1 <= 0 ? L.full : L.left}</div>
-      </div>
-      <div class="slot-box ${r2 <= 0 ? 'full' : ''}">
-        <div class="slot-num ${r2 <= 0 ? 'full' : ''}">${r2 <= 0 ? '0' : r2}</div>
-        <div class="slot-lbl">${L.cat2} — ${r2 <= 0 ? L.full : L.left}</div>
-      </div>`;
+      <div class="slot-box ${cat1Closed() ? 'full' : ''}">${cat1Label}</div>
+      <div class="slot-box ${cat2Closed() ? 'full' : ''}">${cat2Label}</div>`;
 
     // Update submit button and category select based on selected cat
     updateSubmitBtn(lang);
@@ -867,15 +885,29 @@ function isWaitlist(lang) {
   return countPairs(cat) >= MAX_PAIRS;
 }
 
+function isCatClosed(lang) {
+  const cat = getSelectedCat(lang);
+  if (cat === '1') return cat1Closed();
+  if (cat === '2') return cat2Closed();
+  return false;
+}
+
 function updateSubmitBtn(lang) {
   const btn = document.getElementById('sbtn-' + lang);
   if (!btn) return;
   const labels = {
-    en: {reg:'Submit Registration →', wl:'Join Waitlist →'},
-    ru: {reg:'Отправить заявку →', wl:'Записаться в лист ожидания →'},
-    tr: {reg:'Kaydı Gönder →',    wl:'Bekleme listesine ekle →'},
+    en: {reg:'Submit Registration →', wl:'Join Waitlist →', closed:'Registration closed'},
+    ru: {reg:'Отправить заявку →', wl:'Записаться в лист ожидания →', closed:'Регистрация закрыта'},
+    tr: {reg:'Kaydı Gönder →',    wl:'Bekleme listesine ekle →',     closed:'Kayıt kapatıldı'},
   };
   const L = labels[lang];
+  if (isCatClosed(lang)) {
+    btn.textContent = L.closed;
+    btn.style.background = '#666';
+    btn.disabled = true;
+    return;
+  }
+  btn.disabled = false;
   const wl = isWaitlist(lang);
   btn.textContent = wl ? L.wl : L.reg;
   btn.style.background = wl ? '#C8941A' : '';
