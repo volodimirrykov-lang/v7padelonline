@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>YEAR ONE BY V7 · Розыгрыш</title>
+<style>
+/* Экран для телевизора на вечеринке. Ничего не решает: победителя выбирает
+   сервер, здесь только показ. Поэтому в браузере нет ни одной кнопки, которая
+   влияла бы на результат — «выиграть» подкруткой в консоли нельзя.
+   Шрифты системные намеренно: на вечеринке интернет может подвести, а экран
+   должен выглядеть одинаково всегда. */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#061514;color:#f2eee3;overflow:hidden;
+  font-family:"Trebuchet MS","Segoe UI",system-ui,-apple-system,sans-serif}
+.wrap{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:3vh 4vw;position:relative}
+.eyebrow{font-size:clamp(14px,1.6vw,26px);font-weight:800;letter-spacing:.34em;color:#e5ff2b;text-transform:uppercase}
+h1{font-size:clamp(44px,9vw,170px);font-weight:900;line-height:.92;letter-spacing:-.02em;margin:2vh 0}
+h1 em{font-style:normal;color:#e5ff2b}
+.prize{font-size:clamp(20px,3.2vw,58px);font-weight:800;color:#f2eee3;margin-bottom:1vh}
+.sponsor{font-size:clamp(13px,1.5vw,26px);color:#9fb0a6;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.roll{font-size:clamp(38px,8vw,150px);font-weight:900;line-height:1;color:#f2eee3;
+  min-height:1.1em;letter-spacing:-.01em}
+.roll.spin{opacity:.62;filter:blur(.4px)}
+.ticket{display:inline-block;margin-top:2.4vh;font-size:clamp(20px,3vw,54px);font-weight:900;
+  font-family:ui-monospace,"Courier New",monospace;color:#061514;background:#e5ff2b;
+  padding:.35em .8em;border-radius:.28em;letter-spacing:.04em}
+.foot{position:absolute;bottom:2.6vh;left:0;right:0;display:flex;justify-content:space-between;
+  padding:0 4vw;font-size:clamp(12px,1.2vw,20px);color:#6f847a;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.hist{position:absolute;top:2.6vh;right:4vw;text-align:right;font-size:clamp(11px,1.05vw,17px);
+  color:#8fa196;line-height:1.75;max-width:32vw}
+.hist b{color:#e5ff2b}
+.dot{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:#e5ff2b;margin-right:.5em;
+  animation:p 1.4s ease-in-out infinite}
+@keyframes p{0%,100%{opacity:.25}50%{opacity:1}}
+.win{animation:pop .5s cubic-bezier(.2,1.5,.4,1)}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.off{color:#8fa196;font-size:clamp(14px,1.6vw,24px);margin-top:2vh}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow" id="eyebrow">V7 PADEL ANTALYA · YEAR ONE</p>
+  <div id="stage"></div>
+  <div class="hist" id="hist"></div>
+  <div class="foot"><span id="pool"></span><span>28.08 · V7PADEL.ONLINE</span></div>
+</div>
+<script>
+(function(){
+  var API='https://api.rex.v7padel.club/api/birthday/draw';
+  var stage=document.getElementById('stage'), hist=document.getElementById('hist'),
+      pool=document.getElementById('pool');
+  var NAMES=[], lastTicket=null, rolling=null;
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function idle(d){
+    stage.innerHTML='<h1>YEAR <em>ONE</em><br>BY V7</h1>'
+      +'<p class="off"><span class="dot"></span>Розыгрыш вот-вот начнётся</p>';
+  }
+
+  /* Барабан крутит ИМЕНА, которые уже пришли с сервера — победитель среди них
+     уже выбран, анимация только показывает. Совпадение с настоящим победителем
+     в момент остановки не случайность и не подкрутка: мы просто показываем его. */
+  function spin(win, prize, sponsor){
+    clearInterval(rolling);
+    var head='<p class="prize">'+esc(prize||'Приз')+'</p>'
+      +(sponsor?'<p class="sponsor">'+esc(sponsor)+'</p>':'');
+    stage.innerHTML=head+'<div class="roll spin" id="roll">&nbsp;</div>';
+    var el=document.getElementById('roll'), i=0, t0=Date.now();
+    var src=NAMES.length?NAMES:[win.name];
+    rolling=setInterval(function(){
+      el.textContent=src[(i++)%src.length];
+      if(Date.now()-t0>3600){
+        clearInterval(rolling); rolling=null;
+        stage.innerHTML=head
+          +'<div class="roll win">'+esc(win.name)+'</div>'
+          +'<div class="ticket win">'+esc(win.ticket)+'</div>';
+      }
+    },70);
+  }
+
+  function tick(){
+    fetch(API,{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+      if(!d||!d.ok) return;
+      NAMES=d.names||[];
+      pool.textContent='билетов в барабане: '+(d.pool_size||0);
+      var w=(d.winners||[]).slice(-6).reverse();
+      hist.innerHTML=w.length?w.map(function(x){
+        return esc(x.prize)+' — <b>'+esc(x.name)+'</b>';}).join('<br>'):'';
+      var cur=d.current;
+      if(d.state==='idle' || !cur){ lastTicket=null; if(!rolling) idle(d); return; }
+      if(cur.ticket!==lastTicket){ lastTicket=cur.ticket; spin(cur, cur.prize, cur.sponsor); }
+    }).catch(function(){});
+  }
+  idle(); tick(); setInterval(tick, 2000);
+})();
+</script>
+</body>
+</html>
